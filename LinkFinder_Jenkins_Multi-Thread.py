@@ -38,7 +38,7 @@ RETURN_CODES = {}
 
 
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 3:
         print('NOT ENOUGH PARAMETERS')
         sys.exit()
 
@@ -52,7 +52,7 @@ def main():
     if check(BASE_URL):
         print('INVALID HOSTNAME')
         sys.exit()
-
+   
     links = getLinks(BASE_URL, TYPE_OF_SEARCH)
 
     print('LINKS TOTAL: ' + str(len(links)))
@@ -70,7 +70,7 @@ def output(links):
     num_links = len(links)
     TOTAL_TESTS = num_links
     t0 = time.time()
-
+    
     urlprocess(links)
 
     httpstatus = None
@@ -90,9 +90,9 @@ def check(site_string):
         else:
             return True
     except Exception, e:
-        print (e)
-        sys.exit()
-
+        print (e) 
+        sys.exit()        
+    
 # cleans links
 
 def clean(pattern, url):
@@ -245,11 +245,12 @@ def urlprocess(links):
     for link in links:
         thread = threading.Thread(target=eachcode,args=[link])
         thread.start()
-        print( threading.active_count() )
+        print(threading.active_count)
         threads.append(thread)
         maxcount = sys.argv[3]
+        #active thread count will be limited by 5
         while (threading.active_count() > int(maxcount)):
-            os.system('clear')
+            os.system('clear') 
             print (link)
 
     for thread in threads:
@@ -357,7 +358,7 @@ a {
 </tr>
 <tr>
 <td>numTestTotal:</td>
-<td>%s</td>
+<td>%s</td> 
 </tr>
 <tr>
 <td>numTestPasses:</td>
